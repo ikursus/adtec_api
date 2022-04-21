@@ -57,11 +57,17 @@ class _MyAppState extends State<MyApp> {
                         child: Column(
                           children: [
                             Card(
-                              color: Colors.amber[200],
+                              color: Colors.indigo,
                               margin: EdgeInsets.all(20),
                               child: ListTile(
                                 title: Text(
-                                    '${snapshot.data![index].id}) ${snapshot.data![index].title}'),
+                                  '${snapshot.data![index].id}) ${snapshot.data![index].title}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -71,12 +77,17 @@ class _MyAppState extends State<MyApp> {
                                 color: Colors.black54,
                               ),
                             ),
-                            Card(
-                              color: Colors.white,
-                              margin: EdgeInsets.all(20),
-                              child: ListTile(
-                                title: Text('${snapshot.data![index].body}'),
-                              ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PostDetail(post: snapshot.data![index]),
+                                  ),
+                                );
+                              },
+                              child: Text('Lihat Kandungan Post'),
                             ),
                           ],
                         ),
@@ -90,6 +101,63 @@ class _MyAppState extends State<MyApp> {
                 );
               }
             }),
+      ),
+    );
+  }
+}
+
+class PostDetail extends StatelessWidget {
+  const PostDetail({Key? key, required this.post}) : super(key: key);
+
+  // Declare data yang pegang value post
+  final Post post;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Post Detail'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              children: [
+                Card(
+                  color: Colors.indigo,
+                  margin: EdgeInsets.all(20),
+                  child: ListTile(
+                    title: Text(
+                      post.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                  width: 300,
+                  child: Divider(
+                    color: Colors.black54,
+                  ),
+                ),
+                Card(
+                  color: Colors.white,
+                  margin: EdgeInsets.all(20),
+                  child: ListTile(
+                    title: Text(
+                      post.body,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
