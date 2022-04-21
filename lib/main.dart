@@ -51,16 +51,35 @@ class _MyAppState extends State<MyApp> {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (_, index) => Container(
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Card(
-                            child: Text('${snapshot.data![index].title}'),
-                          ),
-                          SizedBox(height: 15),
-                          Text('${snapshot.data![index].body}')
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Card(
+                              color: Colors.amber[200],
+                              margin: EdgeInsets.all(20),
+                              child: ListTile(
+                                title: Text(
+                                    '${snapshot.data![index].id}) ${snapshot.data![index].title}'),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                              width: 300,
+                              child: Divider(
+                                color: Colors.black54,
+                              ),
+                            ),
+                            Card(
+                              color: Colors.white,
+                              margin: EdgeInsets.all(20),
+                              child: ListTile(
+                                title: Text('${snapshot.data![index].body}'),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
